@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Board from './Game/Board.js';
-import TileRow from './Game/Row.js';
 
 class App extends Component {
   render() {

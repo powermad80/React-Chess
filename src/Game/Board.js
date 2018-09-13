@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
-import Tile from './Tile.js';
 import TileRow from './Row.js';
+
+var startingLayout = [
+    {piece: "Rook"},
+    {piece: "Knight"},
+    {piece: "Bishop"},
+    {piece: "Queen"},
+    {piece: "King"},
+    {piece: "Bishop"},
+    {piece: "Knight"},
+    {piece: "Rook"}
+];
 
 class Board extends Component {
 
@@ -20,41 +30,32 @@ class Board extends Component {
                     id: tileId,
                     xpos: i,
                     ypos: j,
-                    contains: "nothing"
+                    contains: {piece: "none"},
+                    color: "",
+                    onClick: {}
                 })
                 tileId++;
             }
         }
 
+        for (i = 0; i < 8; i++) {
+            tileList[i].contains = startingLayout[i];
+            tileList[i].color = "White";
+            tileList[63 - i].contains = startingLayout[i];
+            tileList[63 - i].color = "Black";
+            tileList[i + 8].contains = {piece: "Pawn", firstMove: true};
+            tileList[i + 8].color = "White";
+            tileList[55 - i].contains = {piece: "Pawn", firstMove: true};
+            tileList[55 - i].color = "Black";
+        }
+
         return tileList;
-    }
-
-    renderTile(x, y) {
-        return (
-            <Tile xpos={x} ypos={y}></Tile>
-        )
-    }
-
-    renderRow(y) {
-
-        return (
-            <div>
-                {this.renderTile(1, y)}
-                {this.renderTile(2, y)}
-                {this.renderTile(3, y)}
-                {this.renderTile(4, y)}
-                {this.renderTile(5, y)}
-                {this.renderTile(6, y)}
-                {this.renderTile(7, y)}
-                {this.renderTile(8, y)}
-            </div>
-        )
     }
 
     render() {
         var rows = [];
         for (var i = 0; i < 8; i++) {
-            rows.push(this.state.tiles.slice(i * 8, 8 * i));
+            rows.push(this.state.tiles.slice(i * 8, 8 * (i + 1)));
         }
 
         return (
@@ -70,21 +71,6 @@ class Board extends Component {
             </div>
         )
     }
-
-    /*render() {
-        return (
-            <div class="rows">
-                {this.renderRow(1)}
-                {this.renderRow(2)}
-                {this.renderRow(3)}
-                {this.renderRow(4)}
-                {this.renderRow(5)}
-                {this.renderRow(6)}
-                {this.renderRow(7)}
-                {this.renderRow(8)}
-            </div>
-        )
-    }*/
 }
 
 export default Board;

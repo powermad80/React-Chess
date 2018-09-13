@@ -8,8 +8,8 @@ class TileRow extends Component {
     }
 
     render() {
-        var tileList = this.tiles.map(function(id) {
-            return <Tile xpos={this.xpos} ypos={this.ypos} contains={this.contains}></Tile>
+        var tileList = this.tiles.map(function(tiles) {
+            return <Tile xpos={tiles.xpos} ypos={tiles.ypos} contains={tiles.contains} color={tiles.color}></Tile>
         });
 
         return(
